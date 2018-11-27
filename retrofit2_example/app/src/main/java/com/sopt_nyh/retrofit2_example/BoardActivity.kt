@@ -75,7 +75,7 @@ class BoardActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == WRITE_ACTIVITY_REQUEST_CODE){
             if (resultCode == Activity.RESULT_OK){
-
+                getBoardListResponse()
             }
         }
     }

@@ -52,19 +52,34 @@ class SignUpActivity : AppCompatActivity() {
         //Gson 라이브러리의 Json Parser을 통해 객체를 Json으로!
         val gsonObject = JsonParser().parse(jsonObject.toString()) as JsonObject
 
+        //통신 시작
         val postSignUpResponse: Call<PostSignUpResponse> =
                 networkService.postSignUpResponse("application/json", gsonObject)
-        postSignUpResponse.enqueue(object : Callback<PostSignUpResponse> {
+        postSignUpResponse.enqueue(object : Callback<PostSignUpResponse>{
             override fun onFailure(call: Call<PostSignUpResponse>, t: Throwable) {
-                Log.e("sign up fail", t.toString())
+                Log.e("Sign Up Fail", t.toString())
             }
-            //통신 성공 시 수행되는 메소드
             override fun onResponse(call: Call<PostSignUpResponse>, response: Response<PostSignUpResponse>) {
-                if (response.isSuccessful) {
-                    toast(response.body()!!.message)
+                if (response.isSuccessful){
+                    var message : String = response.body()!!.message
+                    toast(message)
                     finish()
                 }
             }
         })
     }
 }
+
+
+//object : Callback<PostSignUpResponse> {
+//    override fun onFailure(call: Call<PostSignUpResponse>, t: Throwable) {
+//        Log.e("sign up fail", t.toString())
+//    }
+//    //통신 성공 시 수행되는 메소드
+//    override fun onResponse(call: Call<PostSignUpResponse>, response: Response<PostSignUpResponse>) {
+//        if (response.isSuccessful) {
+//            toast(response.body()!!.message)
+//            finish()
+//        }
+//    }
+//}

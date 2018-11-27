@@ -64,6 +64,7 @@ class MainActivity : AppCompatActivity() {
                         SharedPreferenceController.setAuthorization(this@MainActivity, token)
                         toast(SharedPreferenceController.getAuthorization(this@MainActivity))
                         startActivity<BoardActivity>()
+                        finish()
                     }
                 }
             })
