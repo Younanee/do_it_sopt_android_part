@@ -75,6 +75,10 @@ class BoardActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == WRITE_ACTIVITY_REQUEST_CODE){
             if (resultCode == Activity.RESULT_OK){
+                //리스트 비우기
+                boardRecyclerViewAdapter.dataList.clear()
+                boardRecyclerViewAdapter.notifyDataSetChanged()
+                //재통신
                 getBoardListResponse()
             }
         }

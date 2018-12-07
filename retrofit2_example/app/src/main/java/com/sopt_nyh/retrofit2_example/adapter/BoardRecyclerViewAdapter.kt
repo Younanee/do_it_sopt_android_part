@@ -6,12 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.sopt_nyh.retrofit2_example.DetailedBoardActivity
 import com.sopt_nyh.retrofit2_example.R
 import com.sopt_nyh.retrofit2_example.data.BoardData
 import kotlinx.android.synthetic.main.rv_item_board.view.*
+import org.jetbrains.anko.startActivity
 
 class BoardRecyclerViewAdapter(val ctx: Context, val dataList: ArrayList<BoardData>) : RecyclerView.Adapter<BoardRecyclerViewAdapter.Holder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -36,6 +39,10 @@ class BoardRecyclerViewAdapter(val ctx: Context, val dataList: ArrayList<BoardDa
                 .thumbnail(0.5f)
                 .into(holder.image)
 
+        holder.btn_show_detailed.setOnClickListener {
+            ctx.startActivity<DetailedBoardActivity>("b_id" to dataList[position].b_id)
+        }
+
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -43,5 +50,6 @@ class BoardRecyclerViewAdapter(val ctx: Context, val dataList: ArrayList<BoardDa
         val like_cnt: TextView = itemView.findViewById(R.id.tv_rv_item_board_like_cnt) as TextView
         val date: TextView = itemView.findViewById(R.id.tv_rv_item_board_date) as TextView
         val image: ImageView = itemView.findViewById(R.id.iv_rv_item_board_image) as ImageView
+        val btn_show_detailed : RelativeLayout = itemView.findViewById(R.id.btn_rv_item_board_show_detailed) as RelativeLayout
     }
 }

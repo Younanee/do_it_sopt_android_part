@@ -49,7 +49,8 @@ class WriteActivity : AppCompatActivity() {
     private fun setOnBtnClickListener() {
         //앨범 열기 버튼 리스너
         btn_write_act_show_album.setOnClickListener {
-            //바로 앨범을 열지 않고, 권한 허용을 확인 한 뒤 앨범을 열도록 하는 메소드를 호출합니다.
+            //바로 앨범을 열지 않고,
+            //권한 허용을 확인 한 뒤 앨범을 열도록 하는 메소드를 호출합니다.
             requestReadExternalStoragePermission()
         }
         //글쓰기 완료 버튼 리스너
@@ -86,7 +87,6 @@ class WriteActivity : AppCompatActivity() {
                             .load(selectedImageUri)
                             .thumbnail(0.1f)
                             .into(iv_write_act_choice_image)
-
                 }
             }
         }
@@ -149,9 +149,13 @@ class WriteActivity : AppCompatActivity() {
 
             //아래 3줄의 코드가 이미지 파일을 서버로 보내기 위해 MultipartBody.Part 형식으로 만드는 로직입니다.
             // imageURI는 앨범에서 선택한 이미지에 대한 절대 경로가 담겨있는 인스턴스 변수입니다.
-            val file : File = File(imageURI)
-            val requestfile : RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
-            val data : MultipartBody.Part = MultipartBody.Part.createFormData("photo", file.name, requestfile)
+            var data : MultipartBody.Part? = null
+
+            if (imageURI!=null){
+                val file : File = File(imageURI)
+                val requestfile : RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+                data = MultipartBody.Part.createFormData("photo", file.name, requestfile)
+            }
 
             val postWriteBoardResponse =
                     networkService.postWriteBoardResponse(token, title, contents, data)
@@ -163,6 +167,9 @@ class WriteActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<PostWriteBoardResponse>, response: Response<PostWriteBoardResponse>) {
                     if (response.isSuccessful) {
                         toast(response.body()!!.message)
+
+                        //BoardActivity로 결과 보내기
+                        setResult(Activity.RESULT_OK)
                         finish()
                     }
                 }

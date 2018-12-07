@@ -2,6 +2,7 @@ package com.sopt_nyh.retrofit2_example.network
 
 import com.google.gson.JsonObject
 import com.sopt_nyh.retrofit2_example.get.GetBoardListResponse
+import com.sopt_nyh.retrofit2_example.get.GetDetailedBoardResponse
 import com.sopt_nyh.retrofit2_example.post.PostLogInResponse
 import com.sopt_nyh.retrofit2_example.post.PostSignUpResponse
 import com.sopt_nyh.retrofit2_example.post.PostWriteBoardResponse
@@ -43,6 +44,14 @@ interface NetworkService {
             @Query("offset") offset : Int,
             @Query("limit") limit : Int
     ) : Call<GetBoardListResponse>
+
+    //게시물 상세 보기
+    @GET("/contents/{contentIdx}")
+    fun getDetailedBoardResponse(
+            @Header("Content-Type") content_type : String,
+            @Header("Authorization") token : String,
+            @Path("contentIdx") contentIdx : Int
+    ) : Call<GetDetailedBoardResponse>
 
 
 
