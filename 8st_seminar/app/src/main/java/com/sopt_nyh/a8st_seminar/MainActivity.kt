@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         addFragment(MyFragment.getInstance("안녕하세요!", "안드로이드 파트장 남윤환입니다."))
         setOnBtnClickListener()
     }
-
+//
     private fun addFragment(fragment : Fragment){
         val transaction : FragmentTransaction = supportFragmentManager.beginTransaction()
         transaction.add(R.id.fl_main_act_fragment, fragment)
